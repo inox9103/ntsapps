@@ -1,1 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Safar - Open Communication Platform | NTS</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        /* CSS Reset & Disable Selection/Zoom */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Background Glows */
+        .bg-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            top: -100px;
+            left: -100px;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+            bottom: -150px;
+            right: -150px;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 8%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nts-badge {
+            font-size: 0.75rem;
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .app-badge-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #9ca3af;
+            margin-bottom: 40px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Reflection Glowing Download Button */
+        .download-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .btn-download {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 42px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -5px rgba(79, 70, 229, 0.5),
+                        0 0 15px rgba(124, 58, 237, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px -5px rgba(79, 70, 229, 0.7),
+                        0 0 25px rgba(124, 58, 237, 0.5);
+        }
+
+        /* Reflection Shimmer Effect */
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transform: skewX(-25deg);
+            animation: shimmer 3.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .btn-download i {
+            font-size: 1.4rem;
+        }
+
+        /* App Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 28px;
+            border-radius: 16px;
+            text-align: left;
+        }
+
+        .info-card i {
+            font-size: 1.8rem;
+            color: #818cf8;
+            margin-bottom: 16px;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #f3f4f6;
+        }
+
+        .info-card p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+
+        /* Articles Section */
+        .articles-section {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .article-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c084fc;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .article-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .article-card p {
+            color: #9ca3af;
+            font-size: 0.92rem;
+            margin-bottom: 20px;
+        }
+
+        .read-time {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .footer-text {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .btn-download {
+                padding: 16px 32px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="safar.png" alt="Safar Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/42?text=Safar'">
+            <span class="brand-name">Safar</span>
+        </div>
+        <span class="nts-badge">NTS Product</span>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="app-badge-large">
+            <i class="fa-solid fa-shield-halved"></i> 100% Free & Open Communication
+        </div>
+        <h1>Connect Freely with <span>Safar APK</span></h1>
+        <p>Experience seamless, secure, and unrestricted communication with Safar. Built for reliability, privacy, and fast messaging without limitations.</p>
+        
+        <!-- Reflection Download Button -->
+        <div class="download-wrapper">
+            <a href="https://github.com/inox9103/ntsapps/raw/refs/heads/main/Safar_1.apk" class="btn-download" download>
+                <i class="fa-solid fa-download"></i>
+                <span>Download Safar APK</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Info Grid -->
+    <section class="info-grid">
+        <div class="info-card">
+            <i class="fa-solid fa-lock"></i>
+            <h3>Open & Secure</h3>
+            <p>Designed with open communication architecture to ensure your privacy and connections remain fully secure at all times.</p>
+        </div>
+        <div class="info-card">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>Lightweight & Fast</h3>
+            <p>Optimized for speed and high efficiency, running smoothly on all Android devices with minimal battery usage.</p>
+        </div>
+        <div class="info-card">
+            <i class="fa-solid fa-gift"></i>
+            <h3>Completely Free</h3>
+            <p>No hidden charges, subscriptions, or paywalls. Enjoy unlimited access and features absolutely free forever.</p>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles-section">
+        <h2 class="section-title">Latest Articles & Insights</h2>
+        <div class="articles-grid">
+            <div class="article-card">
+                <div>
+                    <div class="article-tag">Communication</div>
+                    <h4>The Evolution of Open Communication Platforms</h4>
+                    <p>Discover how open networks are changing digital interaction by providing user-centric control, reliability, and global privacy standards.</p>
+                </div>
+                <div class="read-time"><i class="fa-regular fa-clock"></i> 3 min read</div>
+            </div>
+
+            <div class="article-card">
+                <div>
+                    <div class="article-tag">Privacy</div>
+                    <h4>Why Open-Access Messaging Matters Today</h4>
+                    <p>Understanding the vital importance of secure data protocols and unhindered connectivity in modern mobile applications.</p>
+                </div>
+                <div class="read-time"><i class="fa-regular fa-clock"></i> 4 min read</div>
+            </div>
+
+            <div class="article-card">
+                <div>
+                    <div class="article-tag">Technology</div>
+                    <h4>Building Lightweight Android Applications</h4>
+                    <p>A closer look at how NTS Company engineers sleek, fast, and highly responsive mobile apps for everyday users.</p>
+                </div>
+                <div class="read-time"><i class="fa-regular fa-clock"></i> 5 min read</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">NTS Company</div>
+        <div class="footer-text">© 2026 NTS Company. All rights reserved. Safar is a registered trademark of NTS.</div>
+    </footer>
+
+    <!-- JavaScript to Prevent Zoom and Copying -->
+    <script>
+        // Disable Right Click Context Menu
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // Disable Keyboard Shortcuts for Copy, Inspect, etc.
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'a' || e.key === 'i')) {
+                e.preventDefault();
+            }
+        });
+
+        // Disable Double Tap Zoom on Mobile Devices
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
